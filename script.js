@@ -1,43 +1,57 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const divs = document.querySelectorAll(".draggable");
+//your code here
+function allowDrop(ev) {
+  ev.preventDefault();
 
-  let draggedItem = null;
+let dragindex = 0;
+let dropindex = 0;
+let clone = "";
 
-  divs.forEach(div => {
-    div.addEventListener("dragstart", function() {
-      draggedItem = this;
-      setTimeout(() => {
-        this.style.display = "none";
-      }, 0);
-    });
+const images = document.querySelectorAll(".image");
 
-    div.addEventListener("dragend", function() {
-      setTimeout(() => {
-        draggedItem.style.display = "block";
-        draggedItem = null;
-      }, 0);
-    });
+function drag(e) {
+  e.dataTransfer.setData("text", e.target.id);
+}
 
-    div.addEventListener("dragover", function(e) {
-      e.preventDefault();
-    });
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+function allowDrop(e) {
+  e.preventDefault();
+}
 
-    div.addEventListener("dragenter", function(e) {
-      e.preventDefault();
-      this.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
-    });
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+function drop(e) {
+  clone = e.target.cloneNode(true);
+  let data = e.dataTransfer.getData("text");
+  let nodelist = document.getElementById("parent").childNodes;
+  console.log(data, e.target.id);
+  for (let i = 0; i < nodelist.length; i++) {
+    if (nodelist[i].id == data) {
+      dragindex = i;
+    }
+  }
 
-    div.addEventListener("dragleave", function() {
-      this.style.backgroundColor = "";
-    });
+  dragdrop(clone);
 
-    div.addEventListener("drop", function() {
-      this.style.backgroundColor = "";
-      if (draggedItem !== null && draggedItem !== this) {
-        const tempBackground = this.style.backgroundImage;
-        this.style.backgroundImage = draggedItem.style.backgroundImage;
-        draggedItem.style.backgroundImage = tempBackground;
-      }
-    });
-  });
-});
+  document
+    .getElementById("parent")
+    .replaceChild(document.getElementById(data), e.target);
+
+  document
+    .getElementById("parent")
+    .insertBefore(
+      clone,
+      document.getElementById("parent").childNodes[dragindex]
+    );
+}
+
+const dragdrop = (image) => {
+  image.ondragstart = drag;
+  image.ondragover = allowDrop;
+  image.ondrop = drop;
+};
+
+images.forEach(dragdrop);
