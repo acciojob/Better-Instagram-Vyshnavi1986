@@ -28,7 +28,7 @@ function drop(e) {
   let data = e.dataTransfer.getData("text");
   let nodelist = document.getElementById("parent").childNodes;
   console.log(data, e.target.id);
-  for (let i = 1; i < nodelist.length; i++) {
+  for (let i = 1; i <= nodelist.length; i++) {
     if (nodelist[i].id == data) {
       dragindex = 1;
     }
