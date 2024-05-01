@@ -28,22 +28,19 @@ function drop(e) {
   let data = e.dataTransfer.getData("text");
   let nodelist = document.getElementById("parent").childNodes;
   console.log(data, e.target.id);
-  for (let i = 1; i <= nodelist.length; i++) {
-    if (nodelist[i].id == data) {
+  for (let i = 1; i <= nodelist.length; i++) 
+  {
+    if (nodelist[i].id == data) 
+	{
       dragindex = 1;
     }
   }
 
   dragdrop(clone);
 
-  document
-    .getElementById("parent")
-    .replaceChild(document.getElementById(data), e.target);
+  document.getElementById("parent").replaceChild(document.getElementById(data), e.target);
 
-  document
-    .getElementById("parent")
-    .insertBefore(
-      clone,
+  document.getElementById("parent").insertBefore(clone,
       document.getElementById("parent").childNodes[dragindex]
     );
 }
