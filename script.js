@@ -8,13 +8,13 @@ $(document).ready(function() {
 
   $(".draggable").droppable({
     drop: function(event, ui) {
-      var draggableId = ui.draggable.attr("id");
+      var dragId = ui.draggable.attr("id");
       var droppableId = $(this).attr("id");
       
       // Swap background images
-      var draggableImage = $("#" + draggableId + " img").attr("src");
+      var draggableImage = $("#" + dragId + " img").attr("src");
       var droppableImage = $("#" + droppableId + " img").attr("src");
-      $("#" + draggableId + " img").attr("src", droppableImage);
+      $("#" + dragId + " img").attr("src", droppableImage);
       $("#" + droppableId + " img").attr("src", draggableImage);
     }
   });
